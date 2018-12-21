@@ -15,5 +15,4 @@ Disclaimers:
 - Earhquake radius calculation is based on  http://www.cqsrg.org/tools/perceptionradius/
 
 Installation:
-
--Please install auth0/auth0-php and vlucas/phpdotenv on composer before using this. 
+Please install auth0/auth0-php and vlucas/phpdotenv on composer before using this. 
