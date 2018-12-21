@@ -7,10 +7,10 @@ $waktu_gempa = $xml->gempa->Jam;
 
 //2. Converting $waktu_gempa (string) to (time)
 $waktu_gempa = str_replace(" WIB", "", $waktu_gempa);
-$waktu_gempa = strtotime("16:49:10");
+$waktu_gempa = strtotime($waktu_gempa);
 
 //3. Getting current time and convert to the same form as $waktu_gempa (time)
-$current = strtotime((string)date("h:i:sa"));
+$current = strtotime((string)date("h:i:sa")) + 21600;
 
 //4. IsEarthQuake? True if time diff == +/- 30
 $diff = $current - $waktu_gempa;
@@ -18,7 +18,8 @@ print_r($diff);
 $IsEarthQuake = False;
 if (($diff >= -30) and ($diff <= 30)){
 	$IsEarthQuake = True;
-	print_r("Terjadi gempa!");
+	print_r("Terjadi gempa! ");
+	echo '<br/>';
 }
 
 //5. IsLethal? True if magnitude >= 5.0
@@ -29,6 +30,11 @@ if ($IsEarthQuake == True) {
 	$magnitude = (float) $magnitude;
 	if ($magnitude > 5.0) {
 		$IsLethal = True;
+		print_r("Gempa Berbahaya!");
+		echo '<br/>';
+	} else {
+		print_r("Gempa Lemah");
+		echo '<br/>';
 	}
 }
 
@@ -39,11 +45,19 @@ if ($IsLethal = True) {
 }
 
 //7. User Location
-//Disclaimer: This process use api: ip-api (source: ip-api.ip)
-if ($radius != 0) {
+//7.1 Method 1: Use ip-api.io 
+//This method is disabled because of ip-api.io usage limit. Saved in case needed for future use (more accurate value than method 2)
+/*
 	$data = json_decode(file_get_contents('http://ip-api.io/api/json'));
 	$lat = $data -> latitude;
-	$long = $data -> longitude;
+	$long = $data -> longitude; 
+}*/ 
+//7.2 Method 2: Use ipinfodb.com api
+if ($radius != 0) {
+	$arr_location=file_get_contents('http://api.ipinfodb.com/v3/ip-city/?key=9f7c2cc78e895efaaed194174c1ce4dfce13f831103e6b6d65837f152a9c6a33&ip=125.163.77.77');
+	$loc = (explode(";",$arr_location));
+	$lat = $loc[8];
+	$long = $loc[9];
 }
 
 //8. Earthquake Epicentrum
