@@ -13,3 +13,6 @@ Disclaimers:
   2. Second Version: Change method of obtaining user location to ipinfodb.com api. No problem found in using this method.
 - Distance from one latitude-longitude point to another point calculator (geodatasource.php) come from geodatasource.com.
 - Earhquake radius calculation is based on  http://www.cqsrg.org/tools/perceptionradius/
+
+Installation:
+-Please install auth0/auth0-php and vlucas/phpdotenv on composer before using this. 
